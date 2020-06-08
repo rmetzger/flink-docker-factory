@@ -28,7 +28,11 @@ jobs:
         mvn -version
 
 
-        python2.7 -m SimpleHTTPServer
+        python2.7 -m SimpleHTTPServer > a.log &
+
+        sleep 2
+        cat a.log
+        wget http://localhost:8000/flink.tgz
         exit 1
 
         git clone https://github.com/apache/flink.git
