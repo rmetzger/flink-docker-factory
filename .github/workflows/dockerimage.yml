@@ -42,7 +42,7 @@ jobs:
         git clone https://github.com/apache/flink-docker
         cd flink-docker
         git checkout dev-master
-        ./add-custom.sh -u http://localhost:8000/data/flink.tgz -n flink-custom
+        ./add-custom.sh -u http://localhost:8000/flink.tgz -n flink-custom
         cd dev/flink-custom-debian
         IMGNAME="rmetzger/flink:$VERSION-$COMMIT"
         docker build -t $IMGNAME . 
