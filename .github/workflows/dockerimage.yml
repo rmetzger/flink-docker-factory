@@ -2,12 +2,9 @@
 # Objective: On each push to this repository, build
 # a flink-docker image from a specified commit
 # 
-#  ARMv7, amd64
-#
-#
 
 
-name: Docker Image CI
+name: flink-docker image factory
 
 on: [push]
 
@@ -29,6 +26,10 @@ jobs:
         set -x
         
         mvn -version
+
+
+        python2.7 -m SimpleHTTPServer
+        exit 1
 
         git clone https://github.com/apache/flink.git
         cd flink
