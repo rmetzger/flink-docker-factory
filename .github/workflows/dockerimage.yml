@@ -24,9 +24,12 @@ jobs:
     # - uses: actions/checkout@v1
     - name: Login to DockerHub Registry
       run: echo ${{ secrets.DOCKERHUB_PASSWORD }} | docker login -u rmetzger --password-stdin
-    - name: Build & push the Docker image
+    - name: Build Flink & Build docker image & push it
       run: |
         set -x
+        
+        mvn -version
+
         git clone https://github.com/apache/flink.git
         cd flink
         git remote add rmetzger https://github.com/rmetzger/flink.git
@@ -40,7 +43,7 @@ jobs:
         cd flink-docker
         git checkout dev-master
         ./add-custom.sh -u http://localhost:8000/data/flink.tgz -n flink-custom
-        cd dev/flink-custom
+        cd dev/flink-custom-debian
         IMGNAME="rmetzger/flink:$VERSION-$COMMIT"
         docker build -t $IMGNAME . 
         docker push $IMGNAME
