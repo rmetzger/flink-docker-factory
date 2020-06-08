@@ -1,0 +1,47 @@
+#
+# Objective: On each push to this repository, build
+# a flink-docker image from a specified commit
+# 
+#  ARMv7, amd64
+#
+#
+
+
+name: Docker Image CI
+
+on: [push]
+
+env:
+  VERSION: 1.11-SNAPSHOT
+  COMMIT: 5399e0315698778e579dcf6557f14e74e08dcc2e
+
+jobs:
+  build:
+    runs-on: ubuntu-18.04
+    name: "Build rmetzger/flink:"
+
+    steps:
+    # - uses: actions/checkout@v1
+    - name: Login to DockerHub Registry
+      run: echo ${{ secrets.DOCKERHUB_PASSWORD }} | docker login -u rmetzger --password-stdin
+    - name: Build & push the Docker image
+      run: |
+        set -x
+        git clone https://github.com/apache/flink.git
+        cd flink
+        git remote add rmetzger https://github.com/rmetzger/flink.git
+        git checkout $COMMIT
+        mvn clean install -DskipTests -Dfast
+        cd flink-dist/target/flink-*-bin
+        tar czf flink.tgz flink-*
+        python2.7 -m SimpleHTTPServer &
+        cd
+        git clone https://github.com/apache/flink-docker
+        cd flink-docker
+        git checkout dev-master
+        ./add-custom.sh -u http://localhost:8000/data/flink.tgz -n flink-custom
+        cd dev/flink-custom
+        IMGNAME="rmetzger/flink:$VERSION-$COMMIT"
+        docker build -t $IMGNAME . 
+        docker push $IMGNAME
+        echo "Successfully build $IMGNAME"
