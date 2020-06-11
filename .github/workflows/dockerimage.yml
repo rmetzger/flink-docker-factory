@@ -50,6 +50,6 @@ jobs:
         ./add-custom.sh -u http://localhost:8000/flink.tgz -n flink-custom
         cd dev/flink-custom-debian
         IMGNAME="rmetzger/flink:$VERSION-$COMMIT"
-        docker build -t $IMGNAME . 
+        docker build --network host -t $IMGNAME . 
         docker push $IMGNAME
         echo "Successfully build $IMGNAME"
