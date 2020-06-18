@@ -9,8 +9,8 @@ name: flink-docker image factory
 on: [push]
 
 env:
-  VERSION: 1.11-SNAPSHOT
-  COMMIT: 5399e0315698778e579dcf6557f14e74e08dcc2e
+  VERSION: 1.11.0-rc2
+  COMMIT: c4132de4a50ab9b8f653c69af1ba15af44ff29a2
 
 jobs:
   build:
