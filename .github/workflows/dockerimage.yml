@@ -11,6 +11,8 @@ on: [push]
 env:
   VERSION: 1.11.0-rc2
   COMMIT: c4132de4a50ab9b8f653c69af1ba15af44ff29a2
+  # specify URL if you want to use an existing dist
+  URL: https://dist.apache.org/repos/dist/dev/flink/flink-1.11.0-rc2/flink-1.11.0-bin-scala_2.12.tgz
 
 jobs:
   build:
@@ -27,19 +29,22 @@ jobs:
         
         mvn -version
 
-        git clone https://github.com/apache/flink.git
-        cd flink
-        git remote add rmetzger https://github.com/rmetzger/flink.git
-        git checkout $COMMIT
-        mvn clean install -DskipTests -Dfast
-        cd flink-dist/target/flink-*-bin
-        tar czf flink.tgz flink-*
-        python2.7 -m SimpleHTTPServer &
-        cd
+        if [[ "$URL" == "" ]] ; then
+            git clone https://github.com/apache/flink.git
+            cd flink
+            git remote add rmetzger https://github.com/rmetzger/flink.git
+            git checkout $COMMIT
+            mvn clean install -DskipTests -Dfast
+            cd flink-dist/target/flink-*-bin
+            tar czf flink.tgz flink-*
+            python2.7 -m SimpleHTTPServer &
+            cd
+            URL="http://localhost:8000/flink.tgz"
+        fi
         git clone https://github.com/apache/flink-docker
         cd flink-docker
         git checkout dev-master
-        ./add-custom.sh -u http://localhost:8000/flink.tgz -n flink-custom
+        ./add-custom.sh -u $URL -n flink-custom
         cd dev/flink-custom-debian
         IMGNAME="rmetzger/flink:$VERSION-$COMMIT"
         docker build --network host -t $IMGNAME . 
