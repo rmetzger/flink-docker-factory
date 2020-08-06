@@ -33,6 +33,7 @@ jobs:
             git clone https://github.com/apache/flink.git
             cd flink
             git remote add rmetzger https://github.com/rmetzger/flink.git
+            git fetch rmetzger
             git checkout $COMMIT
             mvn clean install -DskipTests -Dfast
             cd flink-dist/target/flink-*-bin
