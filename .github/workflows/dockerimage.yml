@@ -9,10 +9,10 @@ name: flink-docker image factory
 on: [push]
 
 env:
-  VERSION: 1.11.0-rc2
-  COMMIT: c4132de4a50ab9b8f653c69af1ba15af44ff29a2
+  VERSION: 1.12.0-yang
+  COMMIT: 4aa3c62305a2792983eed9093535ca392ec693e4
   # specify URL if you want to use an existing dist
-  URL: https://dist.apache.org/repos/dist/dev/flink/flink-1.11.0-rc2/flink-1.11.0-bin-scala_2.12.tgz
+  URL: 
 
 jobs:
   build:
