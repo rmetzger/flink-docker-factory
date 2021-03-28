@@ -9,8 +9,8 @@ name: flink-docker image factory
 on: [push]
 
 env:
-  VERSION: 1.13.0-reactive-timeouts-v2
-  COMMIT: 57d9b95fac95a649bd8295c294b77aeee5df12fc
+  VERSION: 1.13-autoscaling-v1
+  COMMIT: 0d34828867b9ecebaff4c56e882da2fd6bafc4a8
   # specify URL if you want to use an existing dist
   URL: 
 
