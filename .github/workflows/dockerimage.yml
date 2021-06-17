@@ -10,7 +10,7 @@ on: [push]
 
 env:
   VERSION: 1.14-logsthreadbundler2
-  COMMIT: 898842b96c600d0b11f0f655acfb15cfa339e58b
+  COMMIT: a42967860edddcbf3698a76be5c6597dcb911e61
   # specify URL if you want to use an existing dist
   URL: 
 
