@@ -9,8 +9,8 @@ name: flink-docker image factory
 on: [push]
 
 env:
-  VERSION: 1.14-logsthreadbundler
-  COMMIT: 8e069a66742a33c474ba61bbcdbceb401d865c70
+  VERSION: 1.14-logsthreadbundler2
+  COMMIT: 898842b96c600d0b11f0f655acfb15cfa339e58b
   # specify URL if you want to use an existing dist
   URL: 
 
