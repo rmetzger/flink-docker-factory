@@ -9,8 +9,8 @@ name: flink-docker image factory
 on: [push]
 
 env:
-  VERSION: 1.14-app_mode_tm
-  COMMIT: 64a852f3c580425a94ab6ebb5b94f212a06456bd
+  VERSION: 1.14-app_mode_tm_shutdown
+  COMMIT: 890a0a407dd333bf19948ca7ec879e8af5b221d5
   # specify URL if you want to use an existing dist
   URL: 
 
