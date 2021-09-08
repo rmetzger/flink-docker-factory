@@ -1,7 +1,7 @@
 #
 # Objective: On each push to this repository, build
 # a flink-docker image from a specified commit
-# 
+#
 
 
 name: flink-docker image factory
@@ -12,7 +12,7 @@ env:
   VERSION: 1.14-app_mode_tm_shutdown-v2
   COMMIT: c4a89e3a551e9b6beb8b9880df70f6279c78baa1
   # specify URL if you want to use an existing dist
-  URL: 
+  URL:
 
 jobs:
   build:
@@ -26,14 +26,15 @@ jobs:
     - name: Build Flink & Build docker image & push it
       run: |
         set -x
-        
+
         mvn -version
 
         if [[ "$URL" == "" ]] ; then
             git clone https://github.com/apache/flink.git
             cd flink
             git remote add rmetzger https://github.com/rmetzger/flink.git
-            git fetch rmetzger
+            git remote add austince https://github.com/austince/flink.git
+            git fetch --all
             git checkout $COMMIT
             mvn clean install -DskipTests -Dfast
             cd flink-dist/target/flink-*-bin
@@ -48,6 +49,6 @@ jobs:
         ./add-custom.sh -u $URL -n flink-custom
         cd dev/flink-custom-debian
         IMGNAME="rmetzger/flink:$VERSION-$COMMIT"
-        docker build --network host -t $IMGNAME . 
+        docker build --network host -t $IMGNAME .
         docker push $IMGNAME
         echo "Successfully build $IMGNAME"
