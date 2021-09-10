@@ -9,8 +9,8 @@ name: flink-docker image factory
 on: [push]
 
 env:
-  VERSION: 1.15-confirm-shutdown
-  COMMIT: a23fa5d2c3c78d0ff3d11fef11a5260b90225fd5
+  VERSION: 1.15-confirm-shutdown2
+  COMMIT: 295573e4fb9ee4fe0c8028122e665b3504ba00da
   # specify URL if you want to use an existing dist
   URL: ""
 
